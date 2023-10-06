@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import './Logs.css'; 
 
+function formatPrice(price) {
+    const numPrice = parseFloat(price);
+    if (isNaN(numPrice)) return price;  // 如果价格不是数字，原样返回
+    return (numPrice / Math.pow(10, 18)).toFixed(4);
+}
+
 function Logs() {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -75,8 +81,8 @@ function Logs() {
             <tr key={log.id}>
               <td>{log.subject}</td>
               <td>{log.twittername}</td>
-              <td>{log.buyprice}</td>
-              <td>{log.sellprice}</td>
+              <td>{formatPrice(log.buyprice)}</td>
+              <td>{formatPrice(log.sellprice)}</td>
             </tr>
           ))}
         </tbody>
