@@ -15,7 +15,7 @@ function Logs() {
   const [sortDirection, setSortDirection] = useState('asc');  // 默认升序
 
   useEffect(() => {
-    fetch('http://localhost:8080/logs')
+    fetch('http://178.128.92.73:8080/logs')
       .then(response => response.json())
       .then(data => {
         console.log(data);

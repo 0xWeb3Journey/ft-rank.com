@@ -1,15 +1,31 @@
-import Image from 'next/image'
-import Logs from '../components/Logs';  // Adjust the path according to your folder structure
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import DataView from '../components/DataView';
 
-export default function Home() {
+function HomePage() {
+  const [data, setData] = useState([]);
+  console.log("===============");
+  console.log(data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get('http://178.128.92.73:8080/logs');
+        
+        // console.log("===============");
+        console.log(result.data);
+        setData(result.data.logs);
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {/* ... rest of your existing code ... */}
-
-      {/* Place the Logs component wherever you want it to render */}
-      <Logs />
-
-      {/* ... rest of your existing code ... */}
-    </main>
+    <div>
+      <DataView data={data} />
+    </div>
   );
 }
+
+export default HomePage;
